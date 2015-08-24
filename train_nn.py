@@ -23,7 +23,7 @@ CWD         = os.path.dirname(os.path.realpath(__file__))
 EXP_NAME    = re.sub('.py$', '', os.path.basename(__file__))
 WORK_DIR    = CWD + '/' + EXP_NAME + '.dir'
 
-hidden_layer_sizes  = (1200,1200)
+hidden_layer_sizes  = (2000, 2000, 2000)
 lr                  = 0.008
 batch_size          = 80
 max_epochs          = 100
