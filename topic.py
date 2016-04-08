@@ -7,6 +7,7 @@ import numpy
 # get mapping from documents to categories
 def cats():
 
+	# use mapping from categories to documents
 	cat_docs = pickle.load(open("cat_docs.p", 'rb'))
 	doc_cats = {}
 
@@ -14,14 +15,12 @@ def cats():
 		for doc_id in cat_docs[cat_id]:
 			doc_cats[doc_id] = cat_id
 
+	# update set of categories
 	cats = set()
 	cats.update(doc_cats.values())
 
 	# TEST
-	print doc_cats["05437"]
-	print doc_cats["03374"]
-	print doc_cats["00123"]
-	print doc_cats["00024"]
+	print cats
 
 	return doc_cats, cats
 
