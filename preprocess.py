@@ -17,6 +17,8 @@ with open(files_counts, 'r') as file:
 # get document categories
 doc_cats, cats = topic.cats()
 
+'''
+
 # get statistics by: document, category, global
 doc_terms, terms = topic.count_lists(files, doc_cats)
 
@@ -25,16 +27,16 @@ mi_by_term = {}
 x2_by_term = {}
 
 for term in terms:
-	for cat in cats:
+	for cat_id in cats:
 		counts = numpy.ones((2,2))
 
 		# generate matrix of doc counts for term, class
-		for doc in doc_cats:
+		for doc_id in doc_cats:
 			i = 0
 			j = 0
-			if term in doc_terms[doc]:
+			if term in doc_terms[doc_id]:
 				i = 1
-			if doc_cats[doc] == cat:
+			if doc_cats[doc_id] == cat_id:
 				j = 1
 			counts[i,j] += 1
 
@@ -85,3 +87,5 @@ for item in x2_top[:100]:
 
 # generate term frequency vectors
 topic.make_vectors(x2_top, doc_cats, doc_terms, k_vals, vectors_x2)
+
+'''
