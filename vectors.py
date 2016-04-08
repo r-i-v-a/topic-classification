@@ -32,7 +32,7 @@ num_terms = len(terms)
 print "vocabulary size:", num_terms
 
 for i, term in enumerate(terms):
-	print "calculating MI, X2:", "{:.2f}".format(100 * i / num_terms), '%'
+	print "calculating MI, X2:", "{:.3f}".format(100 * i / num_terms), '%'
 	for cat_id in cats:
 		counts = numpy.ones((2,2))
 
