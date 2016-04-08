@@ -19,9 +19,6 @@ def cats():
 	cats = set()
 	cats.update(doc_cats.values())
 
-	# TEST
-	print cats
-
 	return doc_cats, cats
 
 # get term counts by document for labeled documents
