@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -r counts/*
+
 while read d; do
 	mkdir $d
 done < files_subdirectories.txt
