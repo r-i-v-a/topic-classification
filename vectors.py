@@ -29,7 +29,7 @@ x2_by_term = {}
 
 for term in terms:
 	for cat_id in cats:
-		print "calculating MI, X2 for:", term, cat_id
+		print "calculating MI, X2 for:", cat_id, term
 		counts = numpy.ones((2,2))
 
 		# generate matrix of doc counts for term, class
