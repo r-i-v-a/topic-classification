@@ -7,5 +7,5 @@ while read d; do
 done < files_subdirectories.txt
 
 paste files_source.txt files_counts.txt | while read fs fc; do
-	sed '/^#.*$/d' < $fs | sed 's/^.*?:/ /g' | tr -s "[:blank:]" "\n" | sed '/^$/d' | sort | uniq -c > $fc
+	tr -c "[a-z'_.]" "\n" < $fs | sed '/^$/d' | sort | uniq -c > $fc
 done
