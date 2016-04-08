@@ -7,7 +7,12 @@ import numpy
 # get mapping from documents to categories
 def cats():
 
-	doc_cats = pickle.load("doc_cats.p")
+	cat_docs = pickle.load(open("cat_docs.p", 'rb'))
+
+	print cat_docs
+
+	'''
+
 	cats = set()
 	cats.update(doc_cats.values())
 
@@ -16,6 +21,8 @@ def cats():
 	print doc_cats["00002"]
 
 	return doc_cats, cats
+
+	'''
 
 # get term counts by document for labeled documents
 def count_lists(files, doc_cats):
