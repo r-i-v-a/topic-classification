@@ -27,7 +27,7 @@ doc_terms, terms = topic.count_lists(files, doc_cats)
 mi_by_term = {}
 x2_by_term = {}
 num_terms = len(terms)
-print num_terms
+print "number of terms:", num_terms
 
 '''
 
