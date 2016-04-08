@@ -54,6 +54,7 @@ def make_vectors(top, doc_cats, doc_terms, k_vals, dir):
 
 	# iterate over output vector sizes
 	for k in k_vals:
+		print "vector size:", k
 
 		vec_x = numpy.zeros((len(doc_terms), k))
 		vec_y = numpy.zeros(len(doc_terms))

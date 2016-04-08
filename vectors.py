@@ -29,7 +29,7 @@ x2_by_term = {}
 
 for term in terms:
 	for cat_id in cats:
-		print "calculating MI, X2 for: ", term, cat_id
+		print "calculating MI, X2 for:", term, cat_id
 		counts = numpy.ones((2,2))
 
 		# generate matrix of doc counts for term, class
@@ -68,7 +68,6 @@ for term in x2_by_term:
 
 # k = number of features to select = final vector size
 k_vals = [10, 20, 30]
-print "output vector sizes: ", k_vals
 
 # select top k: mutual information
 print "saving MI: ranked terms"
