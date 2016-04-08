@@ -26,6 +26,10 @@ doc_terms, terms = topic.count_lists(files, doc_cats)
 # for each term, category pair: compute MI, X2
 mi_by_term = {}
 x2_by_term = {}
+num_terms = len(terms)
+print num_terms
+
+'''
 
 for term in terms:
 	print "calculating MI, X2 for:", term
@@ -88,3 +92,5 @@ with open("top_x2.p", 'wb') as file:
 # generate term frequency vectors
 print "saving X2: document vectors"
 topic.make_vectors(top_x2, doc_cats, doc_terms, k_vals, vectors_x2)
+
+'''
