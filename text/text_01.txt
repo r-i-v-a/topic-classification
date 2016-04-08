@@ -1,0 +1,11 @@
+# <documentation> <comment>
+
+<line> <start> : Apple's online store closes in advance of iPhone event
+<line> <start> : As usual, Apple has temporarily shut the doors of its
+<line> <start> : online store : as it preps for the likely unveiling of
+<line> <start> : a new iPhone and iPad and : additional colors and bands
+<line> <start> : A message on the company's Apple Store page says:
+<line> <start> : We can't wait to show you what we have in store.
+<line> <start> : Our virtual : doors are just about to open.
+<line> <start> : Thank you so much for your enthusiasm and your patience
+<line> <start> : as we work to get everyone in as quickly as possible.

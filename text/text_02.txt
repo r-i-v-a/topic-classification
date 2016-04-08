@@ -1,0 +1,10 @@
+# <documentation> <comment>
+
+<line> <start> : How to watch today's Apple event live Apple CEO Tim Cook
+<line> <start> : speaks during a presentation at Apple headquarters in
+<line> <start> : Cupertino, California October 16, 2014.  REUTERS/ROBERT
+<line> <start> : GALBRAITH today, Apple will hold its next big product
+<line> <start> : launch event from its Cupertino, California headquarters.
+<line> <start> : A select group of tech journalists and insiders received
+<line> <start> : invitations, but everyone else who wants to be among the
+<line> <start> : first to see what's new can watch a live stream.

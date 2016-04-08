@@ -35,7 +35,7 @@ nclasses            = 40
 
 utils.mkdir_p(WORK_DIR)
 
-out_nn_weights  = WORK_DIR + '/nn_weights'
+out_nn_weights = WORK_DIR + '/nn_weights'
 
 # utils.mkdir_p(os.path.dirname(out_nn_weights))
 
