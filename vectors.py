@@ -2,6 +2,7 @@
 
 from __future__ import division
 import chi_squared
+import cPickle as pickle
 import mutual_information
 import numpy
 import topic
@@ -15,9 +16,11 @@ with open(files_counts, 'r') as file:
 	files = [line.replace('\n', '') for line in file.readlines()]
 
 # get document categories
+print "getting document categories"
 doc_cats, cats = topic.cats()
 
-# get statistics by: document, category, global
+# get document term counts
+print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats)
 
 # for each term, category pair: compute MI, X2
@@ -26,6 +29,7 @@ x2_by_term = {}
 
 for term in terms:
 	for cat_id in cats:
+		print "calculating MI, X2 for: ", term, cat_id
 		counts = numpy.ones((2,2))
 
 		# generate matrix of doc counts for term, class
@@ -53,6 +57,7 @@ for term in terms:
 			x2_by_term[term] = x2
 
 # divide by categories to get average
+print "calculating average MI, X2 for terms"
 num_cats = len(cats)
 
 for term in mi_by_term:
@@ -63,25 +68,24 @@ for term in x2_by_term:
 
 # k = number of features to select = final vector size
 k_vals = [10, 20, 30]
+print "output vector sizes: ", k_vals
 
 # select top k: mutual information
-mi_top = sorted(mi_by_term.items(), key = lambda (k,v): v, reverse = True)
-
-# print out top 100
-print "\nTOP 100: MUTUAL INFORMATION\n"
-for item in mi_top[:100]:
-	print item
+print "saving MI: ranked terms"
+top_mi = sorted(mi_by_term.items(), key = lambda (k,v): v, reverse = True)
+with open("top_mi.p", 'wb') as file:
+	pickle.dump(top_mi, file)
 
 # generate term frequency vectors
-topic.make_vectors(mi_top, doc_cats, doc_terms, k_vals, vectors_mi)
+print "saving MI: document vectors"
+topic.make_vectors(top_mi, doc_cats, doc_terms, k_vals, vectors_mi)
 
 # select top k: chi-squared
-x2_top = sorted(x2_by_term.items(), key = lambda (k,v): v, reverse = True)
-
-# print out top 100
-print "\nTOP 100: CHI-SQUARED\n"
-for item in x2_top[:100]:
-	print item
+print "saving X2: ranked terms"
+top_x2 = sorted(x2_by_term.items(), key = lambda (k,v): v, reverse = True)
+with open("top_x2.p", 'wb') as file:
+	pickle.dump(top_x2, file)
 
 # generate term frequency vectors
-topic.make_vectors(x2_top, doc_cats, doc_terms, k_vals, vectors_x2)
+print "saving X2: document vectors"
+topic.make_vectors(top_x2, doc_cats, doc_terms, k_vals, vectors_x2)

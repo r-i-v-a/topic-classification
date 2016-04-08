@@ -4,7 +4,7 @@ from __future__ import division
 import cPickle as pickle
 import numpy
 
-# get mapping from documents to categories
+# get document categories
 def cats():
 
 	# use mapping from categories to documents
@@ -21,7 +21,7 @@ def cats():
 
 	return doc_cats, cats
 
-# get term counts by document for labeled documents
+# get document term counts
 def count_lists(files, doc_cats):
 
 	# to return
@@ -51,7 +51,6 @@ def count_lists(files, doc_cats):
 
 # generate term frequency vectors in sizes: k_vals
 def make_vectors(top, doc_cats, doc_terms, k_vals, dir):
-	print "\nsaving document vectors to ", dir
 
 	# iterate over output vector sizes
 	for k in k_vals:

@@ -4,6 +4,8 @@ echo 'clearing output folders'
 rm -r counts/*
 rm -r vectors_mi/*
 rm -r vectors_x2/*
+rm -r top_mi/*
+rm -r top_x2/*
 
 echo 'making lists of file paths'
 ./files.py
