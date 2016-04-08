@@ -11,3 +11,9 @@ with open("files_counts.txt", "w") as file:
 		num_str = str(i).zfill(5)
 		path = "./counts/" + num_str[:3] + "/" + num_str + ".txt"
 		file.write(path + "\n")
+
+with open("files_subdirectories.txt", "w") as file:
+	for i in range(59):
+		num_str = str(i).zfill(3)
+		path = "./counts/" + num_str
+		file.write(path + "\n")
