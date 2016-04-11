@@ -11,6 +11,9 @@ files_counts = "./files_counts.txt"
 vectors_mi = "./vectors_mi/"
 vectors_x2 = "./vectors_x2/"
 
+# k = number of features to select = final vector size
+k_vals = [100, 300, 500, 700, 900]
+
 # get paths to word count files
 with open(files_counts, 'r') as file:
 	files = [line.replace('\n', '') for line in file.readlines()]
@@ -23,13 +26,13 @@ doc_cats, cats = topic.cats()
 print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats)
 
-# for each term, category pair: compute MI, X2
-mi_by_term = {}
-x2_by_term = {}
-
 # get vocabulary size
 vocab_size = len(terms)
 print "vocabulary size:", vocab_size
+
+# for each term, category pair: compute MI, X2
+mi_by_term = {}
+x2_by_term = {}
 
 for i, term in enumerate(terms):
 	print "calculating MI, X2:", "{:.3f}".format(100 * i / vocab_size), '%'
@@ -66,12 +69,8 @@ num_cats = len(cats)
 
 for term in mi_by_term:
 	mi_by_term[term] /= num_cats
-
 for term in x2_by_term:
 	x2_by_term[term] /= num_cats
-
-# k = number of features to select = final vector size
-k_vals = [100, 300, 500, 700, 900]
 
 # select top k: mutual information
 print "saving MI: ranked terms"
@@ -92,3 +91,10 @@ with open("top_x2.p", 'wb') as file:
 # generate term frequency vectors
 print "saving X2: document vectors"
 topic.make_vectors(top_x2, doc_cats, doc_terms, k_vals, vectors_x2)
+
+# for each term: compute TF-IDF
+tfidf_by_term = {}
+
+for i, term in enumerate(terms):
+	print "calculating TF-IDF:", "{:.3f}".format(100 * i / vocab_size), '%'
+	tfidf_by_term[term] = tfidf.tfidf(term, other args)
