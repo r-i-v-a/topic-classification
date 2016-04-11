@@ -5,13 +5,11 @@ import numpy
 
 # get tf-idf score for given term
 def tfidf(terms, doc_terms):
-	tfidf_by_term = {}
-
 	terms = []
 	count_terms = numpy.zeros(len(terms))
 	count_docs = numpy.zeros(len(terms))
 
-	total_length = 0
+	total_terms = 0
 	total_docs = len(doc_terms)
 
 	for i, term in enumerate(terms):
@@ -20,9 +18,8 @@ def tfidf(terms, doc_terms):
 
 		for doc_id in doc_terms:
 			if term in doc_terms[doc_id]:
+				total_terms += doc_terms[doc_id][term]
 				count_terms[i] += doc_terms[doc_id][term]
 				count_docs[i] += 1
 
-	result = 
-
-	return result
+	return tfidf_by_term
