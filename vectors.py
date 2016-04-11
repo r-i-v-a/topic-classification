@@ -8,7 +8,9 @@ import numpy
 import topic
 
 files_counts = "./files_counts.txt"
+top = "./top/"
 vectors_mi = "./vectors_mi/"
+vectors_tfidf = "./vectors_tfidf/"
 vectors_x2 = "./vectors_x2/"
 
 # k = number of features to select = final vector size
@@ -71,11 +73,11 @@ for term in mi_by_term:
 	mi_by_term[term] /= num_cats
 for term in x2_by_term:
 	x2_by_term[term] /= num_cats
-
+	
 # select top k: mutual information
 print "saving MI: ranked terms"
 top_mi = sorted(mi_by_term.items(), key = lambda (k,v): v, reverse = True)
-with open("top_mi.p", 'wb') as file:
+with open(top + "mi.p", 'wb') as file:
 	pickle.dump(top_mi, file)
 
 # generate term frequency vectors
@@ -85,7 +87,7 @@ topic.make_vectors(top_mi, doc_cats, doc_terms, k_vals, vectors_mi)
 # select top k: chi-squared
 print "saving X2: ranked terms"
 top_x2 = sorted(x2_by_term.items(), key = lambda (k,v): v, reverse = True)
-with open("top_x2.p", 'wb') as file:
+with open(top + "x2.p", 'wb') as file:
 	pickle.dump(top_x2, file)
 
 # generate term frequency vectors
@@ -93,8 +95,14 @@ print "saving X2: document vectors"
 topic.make_vectors(top_x2, doc_cats, doc_terms, k_vals, vectors_x2)
 
 # for each term: compute TF-IDF
-tfidf_by_term = {}
+tfidf_by_term = tfidf.tfidf(list(terms), doc_terms)
 
-for i, term in enumerate(terms):
-	print "calculating TF-IDF:", "{:.3f}".format(100 * i / vocab_size), '%'
-	tfidf_by_term[term] = tfidf.tfidf(term, other args)
+# select top k: TF-IDF
+print "saving TF-IDF: ranked terms"
+top_tfidf = sorted(tfidf_by_term, key = lambda (k,v): v, reverse = True)
+with open(top + "tfidf.p", 'wb') as file:
+	pickle.dump(top_tfidf, file)
+
+# generate term frequency vectors
+print "saving TF-IDF: document vectors"
+topic.make_vectors(top_tfidf, doc_cats, doc_terms, k_vals, vectors_tfidf)

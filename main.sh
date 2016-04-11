@@ -2,7 +2,9 @@
 
 echo 'clearing output folders'
 rm -r counts/*
+rm -r 'top'/*
 rm -r vectors_mi/*
+rm -r vectors_tfidf/*
 rm -r vectors_x2/*
 
 echo 'making lists of file paths'
