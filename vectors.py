@@ -28,11 +28,11 @@ mi_by_term = {}
 x2_by_term = {}
 
 # get vocabulary size
-num_terms = len(terms)
-print "vocabulary size:", num_terms
+vocab_size = len(terms)
+print "vocabulary size:", vocab_size
 
 for i, term in enumerate(terms):
-	print "calculating MI, X2:", "{:.3f}".format(100 * i / num_terms), '%'
+	print "calculating MI, X2:", "{:.3f}".format(100 * i / vocab_size), '%'
 	for cat_id in cats:
 		counts = numpy.ones((2,2))
 
@@ -71,7 +71,7 @@ for term in x2_by_term:
 	x2_by_term[term] /= num_cats
 
 # k = number of features to select = final vector size
-k_vals = [10, 20, 30]
+k_vals = [100, 300, 500, 700, 900]
 
 # select top k: mutual information
 print "saving MI: ranked terms"
