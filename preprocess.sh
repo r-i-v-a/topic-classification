@@ -23,8 +23,3 @@ echo 'getting term counts from each document'
 paste files_source.txt files_counts.txt | while read fs fc; do
 	tr -c "[a-z'_.]" "\n" < $fs | sed '/^[._]*$/d' | sort | uniq -c > $datadir/$fc
 done
-
-# only this part has to be run in SGE
-
-echo 'making document vectors'
-$workdir/vectors.py $datadir

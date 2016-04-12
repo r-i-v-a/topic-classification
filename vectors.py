@@ -5,13 +5,16 @@ import chi_squared
 import cPickle as pickle
 import mutual_information
 import numpy
+import sys
 import topic
 
+datadir = sys.argv[1]
+
 files_counts = "./files_counts.txt"
-top = "./top/"
-vectors_mi = "./vectors_mi/"
-vectors_tfidf = "./vectors_tfidf/"
-vectors_x2 = "./vectors_x2/"
+top = datadir + "/top/"
+vectors_mi = datadir + "/vectors_mi/"
+vectors_tfidf = datadir + "/vectors_tfidf/"
+vectors_x2 = datadir + "/vectors_x2/"
 
 # k = number of features to select = final vector size
 k_vals = [100, 300, 500, 700, 900]
