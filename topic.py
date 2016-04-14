@@ -50,7 +50,7 @@ def count_lists(files, doc_cats):
 	return doc_terms, terms
 
 # generate term frequency vectors in sizes: k_vals
-def make_vectors(top, doc_cats, doc_terms, k_vals, dir):
+def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 
 	# iterate over output vector sizes
 	for k in k_vals:
@@ -60,7 +60,7 @@ def make_vectors(top, doc_cats, doc_terms, k_vals, dir):
 		vec_y = numpy.zeros(len(doc_terms))
 
 		# get term frequencies
-		for i, doc_id in enumerate(doc_cats):
+		for i, doc_id in enumerate(set_test):
 			vec_y[i] = doc_cats[doc_id]
 			for j, item in enumerate(top[:k]):
 				term = item[0]

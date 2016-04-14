@@ -4,7 +4,7 @@
 #$ -N riva_test
 #$ -o /homes/eva/q/qnathans/topic-classification/log/sge.out
 #$ -e /homes/eva/q/qnathans/topic-classification/log/sge.err
-#$ -q all.q@@blade
+#$ -q all.q@<what to put here?>
 
 workdir=$1
 datadir=$2
