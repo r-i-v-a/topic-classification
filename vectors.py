@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import division
-import chi_squared
 import cPickle as pickle
-import mutual_information
-import numpy
-import random
 import sys
-import tfidf
 import topic
 
 datadir = sys.argv[1]
