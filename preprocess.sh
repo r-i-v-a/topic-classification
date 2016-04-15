@@ -2,7 +2,6 @@
 
 workdir=$1
 datadir=$2
-cd $workdir
 
 echo 'clearing output folders'
 rm -r $datadir/counts/*
@@ -17,7 +16,7 @@ $workdir/files.py
 echo 'making subdirectories for counts'
 while read d; do
 	mkdir -p $datadir/$d
-done < files_subdirectories.txt
+done < $workdir/files_subdirectories.txt
 
 echo 'getting term counts from each document'
 paste files_source.txt files_counts.txt | while read fs fc; do

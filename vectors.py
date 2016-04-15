@@ -5,14 +5,13 @@ import chi_squared
 import cPickle as pickle
 import mutual_information
 import numpy
-import random
 import sys
 import topic
 
 datadir = sys.argv[1]
 
 files_counts = "./files_counts.txt"
-top = datadir + "/top/"
+features = datadir + "/features/"
 vectors_mi = datadir + "/vectors_mi/"
 vectors_tfidf = datadir + "/vectors_tfidf/"
 vectors_x2 = datadir + "/vectors_x2/"
@@ -32,11 +31,6 @@ doc_cats, cats = topic.cats()
 print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats)
 
-# separate training and test sets
-set_size = len(doc_cats.keys()) // 10
-set_train = random.sample(doc_cats.keys(), set_size)
-set_test = doc_cats.keys() - set_train
-
 # get vocabulary size
 vocab_size = len(terms)
 print "vocabulary size:", vocab_size
@@ -51,7 +45,7 @@ for i, term in enumerate(terms):
 		counts = numpy.ones((2,2))
 
 		# generate matrix of doc counts for term, class
-		for doc_id in set_train:
+		for doc_id in doc_cats:
 			i = 0
 			j = 0
 			if term in doc_terms[doc_id]:
@@ -83,35 +77,35 @@ for term in mi_by_term:
 for term in x2_by_term:
 	x2_by_term[term] /= num_cats
 	
-# select top k: mutual information
+# select top k features: mutual information
 print "saving MI: ranked terms"
 top_mi = sorted(mi_by_term.items(), key = lambda (k,v): v, reverse = True)
-with open(top + "mi.p", 'wb') as file:
+with open(features + "mi.p", 'wb') as file:
 	pickle.dump(top_mi, file)
 
 # generate term frequency vectors
 print "saving MI: document vectors"
-topic.make_vectors(top_mi, vectors_mi, doc_cats, doc_terms, set_train, k_vals)
+topic.make_vectors(top_mi, doc_cats, doc_terms, k_vals, vectors_mi)
 
-# select top k: chi-squared
+# select top k features: chi-squared
 print "saving X2: ranked terms"
 top_x2 = sorted(x2_by_term.items(), key = lambda (k,v): v, reverse = True)
-with open(top + "x2.p", 'wb') as file:
+with open(features + "x2.p", 'wb') as file:
 	pickle.dump(top_x2, file)
 
 # generate term frequency vectors
 print "saving X2: document vectors"
-topic.make_vectors(top_x2, vectors_x2, doc_cats, doc_terms, set_train, k_vals)
+topic.make_vectors(top_x2, doc_cats, doc_terms, k_vals, vectors_x2)
 
 # for each term: compute TF-IDF
 tfidf_by_term = tfidf.tfidf(list(terms), doc_terms)
 
-# select top k: TF-IDF
+# select top k features: TF-IDF
 print "saving TF-IDF: ranked terms"
 top_tfidf = sorted(tfidf_by_term, key = lambda (k,v): v, reverse = True)
-with open(top + "tfidf.p", 'wb') as file:
+with open(features + "tfidf.p", 'wb') as file:
 	pickle.dump(top_tfidf, file)
 
 # generate term frequency vectors
 print "saving TF-IDF: document vectors"
-topic.make_vectors(top_tfidf, vectors_tfidf, doc_cats, doc_terms, set_train, k_vals)
+topic.make_vectors(top_tfidf, doc_cats, doc_terms, k_vals, vectors_tfidf)
