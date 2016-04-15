@@ -13,7 +13,7 @@ def cats(datadir):
 
 	for cat_id in cat_docs:
 		for doc_id in cat_docs[cat_id]:
-			doc_cats[doc_id] = cat_id
+			doc_cats[doc_id] = cat_id_to_num(cat_id)
 
 	# update set of categories
 	cats = set()
@@ -80,3 +80,7 @@ def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 # return path to counts file for doc ID
 def doc_id_to_path(doc_id, files, datadir):
 	return datadir + files[int(doc_id)-1]
+
+# return integer ID for category
+def cat_id_to_num(cat_id):
+	return int(cat_id[3:])
