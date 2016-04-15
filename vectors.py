@@ -18,7 +18,7 @@ vectors_tfidf = datadir + "/vectors_tfidf/"
 vectors_x2 = datadir + "/vectors_x2/"
 
 # k = number of features to select = final vector size
-k_vals = [100, 300, 500, 700, 900]
+k_vals = [10, 20]
 
 # get paths to word count files
 with open(files_counts, 'r') as file:
@@ -33,9 +33,9 @@ print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats, datadir)
 
 # separate training and test sets
-set_size = len(doc_cats.keys()) // 10
-set_train = random.sample(doc_cats.keys(), set_size)
-set_test = doc_cats.keys() - set_train
+set_size = len(doc_cats.keys()) // 100
+set_train = set(random.sample(doc_cats.keys(), set_size))
+set_test = set(doc_cats.keys()) - set_train
 
 # get vocabulary size
 vocab_size = len(terms)
