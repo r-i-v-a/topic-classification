@@ -4,7 +4,7 @@ from __future__ import division
 import numpy
 
 # get tf-idf score for given term
-def tfidf(terms, doc_terms):
+def tfidf(terms, doc_terms, vocab_size):
 	count_terms = numpy.zeros(len(terms))
 	count_docs = numpy.zeros(len(terms))
 

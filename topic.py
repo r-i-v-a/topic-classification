@@ -68,12 +68,12 @@ def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 					vec_x[i,j] = doc_terms[doc_id][term]
 
 		# save x-vectors as files
-		target_file = dir + "x_" + str(k) + ".p"
+		target_file = dir + "/x_" + str(k) + ".p"
 		with open(target_file, 'wb') as file:
 			pickle.dump(vec_x, file)
 
 		# save y-vectors as files
-		target_file = dir + "y_" + str(k) + ".p"
+		target_file = dir + "/y_" + str(k) + ".p"
 		with open(target_file, 'wb') as file:
 			pickle.dump(vec_y, file)
 
