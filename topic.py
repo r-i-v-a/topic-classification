@@ -5,10 +5,10 @@ import cPickle as pickle
 import numpy
 
 # get document categories
-def cats():
+def cats(datadir):
 
 	# use mapping from categories to documents
-	cat_docs = pickle.load(open("cat_docs.p", 'rb'))
+	cat_docs = pickle.load(open(datadir + "/cat_docs.p", 'rb'))
 	doc_cats = {}
 
 	for cat_id in cat_docs:
@@ -22,7 +22,7 @@ def cats():
 	return doc_cats, cats
 
 # get document term counts
-def count_lists(files, doc_cats):
+def count_lists(files, doc_cats, datadir):
 
 	# to return
 	doc_terms = {}
@@ -30,7 +30,7 @@ def count_lists(files, doc_cats):
 
 	# iterate over documents that have labels
 	for doc_id in doc_cats:
-		file_path = doc_id_to_path(doc_id, files)
+		file_path = doc_id_to_path(doc_id, files, datadir)
 		curr_file = {}
 
 		# get term counts for current document
@@ -78,5 +78,5 @@ def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 			pickle.dump(vec_y, file)
 
 # return path to counts file for doc ID
-def doc_id_to_path(i, files):
-	return files[int(i)-1]
+def doc_id_to_path(doc_id, files, datadir):
+	return datadir + files[int(doc_id)-1]

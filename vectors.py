@@ -26,11 +26,11 @@ with open(files_counts, 'r') as file:
 
 # get document categories
 print "getting document categories"
-doc_cats, cats = topic.cats()
+doc_cats, cats = topic.cats(datadir)
 
 # get document term counts
 print "getting document term counts"
-doc_terms, terms = topic.count_lists(files, doc_cats)
+doc_terms, terms = topic.count_lists(files, doc_cats, datadir)
 
 # separate training and test sets
 set_size = len(doc_cats.keys()) // 10
