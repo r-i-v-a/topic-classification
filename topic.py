@@ -56,8 +56,8 @@ def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 	for k in k_vals:
 		print "vector size:", k
 
-		vec_x = numpy.zeros((len(doc_terms), k))
-		vec_y = numpy.zeros(len(doc_terms))
+		vec_x = numpy.zeros((len(set_test), k))
+		vec_y = numpy.zeros(len(set_test))
 
 		# get term frequencies
 		for i, doc_id in enumerate(set_test):
