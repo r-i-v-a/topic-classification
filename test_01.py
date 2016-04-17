@@ -1,27 +1,26 @@
 #!/usr/bin/env python
 
 from __future__ import division
-import chi_squared
 import cPickle as pickle
-import mutual_information
 import numpy
-import random
 import sys
-import tfidf
 import topic
 
 datadir = sys.argv[1]
 
-files_counts = "./files_counts.txt"
 features = datadir + "/features"
+vectors_mi = datadir + "/vectors_mi"
+vectors_tfidf = datadir + "/vectors_tfidf"
+vectors_x2 = datadir + "/vectors_x2"
 
-# get paths to word count files
-with open(files_counts, 'r') as file:
-	files = [line.replace('\n', '') for line in file.readlines()]
+x_10 = pickle.load(open(vectors_mi + "/x_10.p", 'rb'))
+y_10 = pickle.load(open(vectors_mi + "/y_10.p", 'rb'))
 
-# get document categories
-print "getting document categories"
-doc_cats, cats = topic.cats(datadir)
+print x_10.shape()
+print y_10.shape()
 
-# test conversion of cat_id to integer
-print cats
+x_20 = pickle.load(open(vectors_mi + "/x_20.p", 'rb'))
+y_20 = pickle.load(open(vectors_mi + "/y_20.p", 'rb'))
+
+print x_20.shape()
+print y_20.shape()

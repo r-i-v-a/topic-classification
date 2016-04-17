@@ -68,14 +68,14 @@ def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
 					vec_x[i,j] = doc_terms[doc_id][term]
 
 		# save x-vectors as files
-		target_file = dir + "/x_" + str(k) + ".p"
+		target_file = dir + "/x_" + str(k) + ".npy"
 		with open(target_file, 'wb') as file:
-			pickle.dump(vec_x, file)
+			numpy.save(file, vec_x)
 
 		# save y-vectors as files
-		target_file = dir + "/y_" + str(k) + ".p"
+		target_file = dir + "/y_" + str(k) + ".npy"
 		with open(target_file, 'wb') as file:
-			pickle.dump(vec_y, file)
+			numpy.save(file, vec_y)
 
 # return path to counts file for doc ID
 def doc_id_to_path(doc_id, files, datadir):

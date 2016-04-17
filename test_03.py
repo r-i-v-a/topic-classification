@@ -15,11 +15,5 @@ vectors_x2 = datadir + "/vectors_x2"
 x_10 = numpy.load(vectors_mi + "/x_10.npy")
 y_10 = numpy.load(vectors_mi + "/y_10.npy")
 
-x_20 = numpy.load(vectors_mi + "/x_20.npy")
-y_20 = numpy.load(vectors_mi + "/y_20.npy")
-
 print len(x_10)
 print len(y_10)
-
-print len(x_20)
-print len(y_20)

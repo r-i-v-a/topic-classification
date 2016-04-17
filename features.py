@@ -27,21 +27,28 @@ doc_cats, cats = topic.cats(datadir)
 print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats, datadir)
 
+'''
 # separate training and test sets
-# set_size = len(doc_cats.keys()) // 2
-# ?
-set_size = 50
+set_size = len(doc_cats.keys()) // 2
 set_train = set(random.sample(doc_cats.keys(), set_size))
 set_test = set(doc_cats.keys()) - set_train
+'''
+
+# ?
+# separate training and test sets
+set_size = 20
+set_train = set(random.sample(doc_cats.keys(), set_size))
+set_test = set(random.sample(doc_cats.keys(), set_size))
 
 # save document data
 with open(datadir + "/doc_cats.p", 'wb') as file:
 	pickle.dump(doc_cats, file)
 with open(datadir + "/doc_terms.p", 'wb') as file:
 	pickle.dump(doc_terms, file)
-# ?
-with open(datadir + "/set_test.p", 'wb') as file:
+with open(datadir + "/set_train.p", 'wb') as file:
 	pickle.dump(set_train, file)
+with open(datadir + "/set_test.p", 'wb') as file:
+	pickle.dump(set_test, file)
 
 # get vocabulary size
 vocab_size = len(terms)

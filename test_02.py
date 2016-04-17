@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import division
-import cPickle as pickle
+import numpy
 import sys
 import topic
 
@@ -12,16 +12,14 @@ vectors_mi = datadir + "/vectors_mi"
 vectors_tfidf = datadir + "/vectors_tfidf"
 vectors_x2 = datadir + "/vectors_x2"
 
-# load feature lists
-top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))
-top_tfidf = pickle.load(open(features + "/top_tfidf.p", 'rb'))
-top_x2 = pickle.load(open(features + "/top_x2.p", 'rb'))
+x_10 = numpy.load(open(vectors_mi + "/x_10.npy", 'rb'))
+y_10 = numpy.load(open(vectors_mi + "/y_10.npy", 'rb'))
 
-print "MI"
-print top_mi[:10]
+print x_10[1]
+print y_10
 
-print "X2"
-print top_x2[:10]
+x_20 = numpy.load(open(vectors_mi + "/x_20.npy", 'rb'))
+y_20 = numpy.load(open(vectors_mi + "/y_20.npy", 'rb'))
 
-print "TF-IDF"
-print top_tfidf[:10]
+print x_20
+print y_20
