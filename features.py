@@ -7,7 +7,7 @@ import mutual_information
 import numpy
 import random
 import sys
-import tfidf
+import tf_idf
 import topic
 
 datadir = sys.argv[1]
@@ -27,18 +27,17 @@ doc_cats, cats = topic.cats(datadir)
 print "getting document term counts"
 doc_terms, terms = topic.count_lists(files, doc_cats, datadir)
 
-'''
 # separate training and test sets
 set_size = len(doc_cats.keys()) // 2
 set_train = set(random.sample(doc_cats.keys(), set_size))
 set_test = set(doc_cats.keys()) - set_train
-'''
 
-# ?
-# separate training and test sets
-set_size = 20
+'''
+# mini-sets for time benchmarking
+set_size = 50
 set_train = set(random.sample(doc_cats.keys(), set_size))
 set_test = set(random.sample(doc_cats.keys(), set_size))
+'''
 
 # save document data
 with open(datadir + "/doc_cats.p", 'wb') as file:
@@ -97,23 +96,29 @@ for term in x2_by_term:
 	x2_by_term[term] /= num_cats
 
 # for each term: compute TF-IDF
-tfidf_by_term = tfidf.tfidf(list(terms), doc_terms, vocab_size)
-	
-# select top k features: mutual information
-print "saving MI: ranked terms"
+tf_idf_by_term, freq_by_term = tf_idf.tf_idf(list(terms), doc_terms, vocab_size, set_train)
+
+# save (term, value) pairs: MI
+print "saving (term, value) pairs: MI"
 top_mi = sorted(mi_by_term.items(), key = lambda (k,v): v, reverse = True)
 with open(features + "/top_mi.p", 'wb') as file:
 	pickle.dump(top_mi, file)
 
-# select top k features: chi-squared
-print "saving X2: ranked terms"
+# save (term, value) pairs: X2
+print "saving (term, value) pairs: X2"
 top_x2 = sorted(x2_by_term.items(), key = lambda (k,v): v, reverse = True)
 with open(features + "/top_x2.p", 'wb') as file:
 	pickle.dump(top_x2, file)
 
-# select top k features: TF-IDF
-print "saving TF-IDF: ranked terms"
-top_tfidf = sorted(tfidf_by_term, key = lambda (k,v): v, reverse = True)
-with open(features + "/top_tfidf.p", 'wb') as file:
-	pickle.dump(top_tfidf, file)
+# save (term, value) pairs: TF-IDF
+print "saving (term, value) pairs: TF-IDF"
+top_tf_idf = sorted(tf_idf_by_term, key = lambda (k,v): v, reverse = True)
+with open(features + "/top_tf_idf.p", 'wb') as file:
+	pickle.dump(top_tf_idf, file)
+
+# save (term, value) pairs: FREQ
+print "saving (term, value) pairs: FREQ"
+top_freq = sorted(freq_by_term, key = lambda (k,v): v, reverse = True)
+with open(features + "/top_freq.p", 'wb') as file:
+	pickle.dump(top_freq, file)
 

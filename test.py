@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from __future__ import division
-import numpy
+import cPickle as pickle
 import sys
 import topic
 
@@ -9,19 +9,21 @@ datadir = sys.argv[1]
 
 features = datadir + "/features"
 vectors_mi = datadir + "/vectors_mi"
-vectors_tfidf = datadir + "/vectors_tfidf"
+vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
-x_10 = numpy.load(vectors_mi + "/x_10.npy")
-y_10 = numpy.load(vectors_mi + "/y_10.npy")
+# load feature lists
+top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))
+top_tf_idf = pickle.load(open(features + "/top_tf_idf.p", 'rb'))
+top_x2 = pickle.load(open(features + "/top_x2.p", 'rb'))
+top_freq = pickle.load(open(features + "/top_freq.p", 'rb'))
 
-x_20 = numpy.load(vectors_mi + "/x_20.npy")
-y_20 = numpy.load(vectors_mi + "/y_20.npy")
+print len(top_mi)
+print len(top_tf_idf)
+print len(top_x2)
+print len(top_freq)
 
-print "\n10:"
-print len(x_10), "x", len(x_10[0])
-print len(y_10)
-
-print "\n20:"
-print len(x_20), "x", len(x_20[0])
-print len(y_20)
+print "top_mi\n", top_mi[:10]
+print "top_tf_idf\n", top_tf_idf[:10]
+print "top_x2\n", top_x2[:10]
+print "top_freq\n", top_freq[:10]
