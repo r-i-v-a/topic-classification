@@ -25,9 +25,6 @@ top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))
 top_tf_idf = pickle.load(open(features + "/top_tf_idf.p", 'rb'))
 top_x2 = pickle.load(open(features + "/top_x2.p", 'rb'))
 
-print set_test
-print len(set_test)
-
 # generate term frequency vectors
 print "saving document vectors: MI"
 topic.make_vectors(top_mi, vectors_mi, doc_cats, doc_terms, set_test, k_vals)

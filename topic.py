@@ -3,12 +3,11 @@
 from __future__ import division
 import cPickle as pickle
 import numpy
+import random
 
 # get document categories
-def cats(datadir):
+def cats(cat_docs):
 
-	# use mapping from categories to documents
-	cat_docs = pickle.load(open(datadir + "/cat_docs.p", 'rb'))
 	doc_cats = {}
 
 	for cat_id in cat_docs:
@@ -84,3 +83,10 @@ def doc_id_to_path(doc_id, files, datadir):
 # return integer ID for category
 def cat_id_to_num(cat_id):
 	return int(cat_id[3:])
+
+# split set randomly in half
+def split_set(original):
+	new_size = len(original) // 2
+	new_a = set(random.sample(original, new_size))
+	new_b = set(original) - new_a
+	return new_a, new_b
