@@ -49,32 +49,55 @@ def count_lists(files, doc_cats, datadir):
 	return doc_terms, terms
 
 # generate term frequency vectors in sizes: k_vals
-def make_vectors(top, dir, doc_cats, doc_terms, set_test, k_vals):
+def make_vectors(top, dir, doc_cats, doc_terms, set_train, set_test, k_vals):
 
 	# iterate over output vector sizes
 	for k in k_vals:
 		print "vector size:", k
 
-		vec_x = numpy.zeros((len(set_test), k))
-		vec_y = numpy.zeros(len(set_test))
+		# make training set vectors
+		x_train = numpy.zeros((len(set_train), k))
+		y_train = numpy.zeros(len(set_train))
 
 		# get term frequencies
-		for i, doc_id in enumerate(set_test):
-			vec_y[i] = doc_cats[doc_id]
+		for i, doc_id in enumerate(set_train):
+			y_train[i] = doc_cats[doc_id]
 			for j, item in enumerate(top[:k]):
 				term = item[0]
 				if term in doc_terms[doc_id]:
-					vec_x[i,j] = doc_terms[doc_id][term]
+					x_train[i,j] = doc_terms[doc_id][term]
 
 		# save x-vectors as files
-		target_file = dir + "/x_" + str(k) + ".npy"
+		target_file = dir + "/x_train_" + str(k) + ".npy"
 		with open(target_file, 'wb') as file:
-			numpy.save(file, vec_x)
+			numpy.save(file, x_train)
 
 		# save y-vectors as files
-		target_file = dir + "/y_" + str(k) + ".npy"
+		target_file = dir + "/y_train_" + str(k) + ".npy"
 		with open(target_file, 'wb') as file:
-			numpy.save(file, vec_y)
+			numpy.save(file, y_train)
+
+		# make test set vectors
+		x_test = numpy.zeros((len(set_test), k))
+		y_test = numpy.zeros(len(set_test))
+
+		# get term frequencies
+		for i, doc_id in enumerate(set_test):
+			y_test[i] = doc_cats[doc_id]
+			for j, item in enumerate(top[:k]):
+				term = item[0]
+				if term in doc_terms[doc_id]:
+					x_test[i,j] = doc_terms[doc_id][term]
+
+		# save x-vectors as files
+		target_file = dir + "/x_test_" + str(k) + ".npy"
+		with open(target_file, 'wb') as file:
+			numpy.save(file, x_test)
+
+		# save y-vectors as files
+		target_file = dir + "/y_test_" + str(k) + ".npy"
+		with open(target_file, 'wb') as file:
+			numpy.save(file, y_test)
 
 # return path to counts file for doc ID
 def doc_id_to_path(doc_id, files, datadir):

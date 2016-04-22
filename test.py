@@ -30,10 +30,6 @@ for cat in cat_docs:
 	set_svm_train.update(add_svm_train)
 	set_svm_test.update(add_svm_test)
 
-print len(set_select)
-print len(set_svm_train)
-print len(set_svm_test)
-
 # get paths to word count files
 with open(files_counts, 'r') as file:
 	files = [line.replace('\n', '') for line in file.readlines()]

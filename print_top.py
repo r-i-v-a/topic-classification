@@ -18,7 +18,7 @@ top_tf_idf = pickle.load(open(features + "/top_tf_idf.p", 'rb'))
 top_x2 = pickle.load(open(features + "/top_x2.p", 'rb'))
 top_freq = pickle.load(open(features + "/top_freq.p", 'rb'))
 
-k = 10
+k = 100
 
 print "\ntop_mi\n"
 print top_mi[:k]
