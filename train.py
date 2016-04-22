@@ -21,4 +21,9 @@ print type(train_lab)
 print type(test_data)
 print type(test_lab)
 
+print train_data.shape
+print train_lab.shape
+print test_data.shape
+print test_lab.shape
+
 # train_svm.run_clfs(train_data, train_lab, test_data, test_lab)
