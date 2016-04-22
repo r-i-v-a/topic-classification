@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
+import numpy as np
 from sklearn.linear_model import SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.grid_search import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
-
 
 def run_clfs(train_data, train_lab, test_data, test_lab):
     """ Run multinomial naive bayes and SVM clfs """
