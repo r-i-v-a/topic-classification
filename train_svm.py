@@ -1,39 +1,54 @@
-# -*- coding: utf-8 -*-
-import numpy as np
+#!/usr/bin/env python
+
+from __future__ import division
 from sklearn.linear_model import SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.grid_search import GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, f1_score
+import numpy
 
 def run_clfs(train_data, train_lab, test_data, test_lab):
-    """ Run multinomial naive bayes and SVM clfs """
+
+    # classification: Multinomial Naive Bayes
+    print "\nMULTINOMIAL NAIVE BAYES\n"
 
     nb_clf = MultinomialNB()
     nb_clf = nb_clf.fit(train_data, train_lab)
     predicted = nb_clf.predict(test_data)
+    nb_acc = accuracy_score(test_lab, predicted) * 100
+    nb_f1 = f1_score(test_lab, predicted, average=None)
 
-    nb_ac = np.mean(predicted == test_lab) * 100.0
-    print('NB acc: %.2f' % nb_ac)
-    # print('CR\n', classification_report(test_lab, predicted))
+    print "accuracy:", nb_acc
+    print "f1 score:", nb_f1
 
-    # These parameters are set based on grid search on train data
+    # classification: Support Vector Machine
+    print "\nSUPPORT VECTOR MACHINE"
 
-    svm_scores = []
-    for it in range(10):
+    num_classes = len(numpy.unique(test_lab))
+    num_sessions = 10
+    svm_avg_acc = 0
+    svm_avg_f1 = numpy.zeros(num_classes)
+
+    for it in range(num_sessions):
         sgd_clf = Pipeline([('clf', SGDClassifier(loss='hinge', penalty='l2',
                                                   alpha=0.4, n_iter=25,
-                                                  random_state=it+5)), ])
+                                                  random_state=it)), ])
 
         sgd_clf = sgd_clf.fit(train_data, train_lab)
         predicted = sgd_clf.predict(test_data)
+        svm_acc = accuracy_score(test_lab, predicted) * 100
+        svm_f1 = f1_score(test_lab, predicted, average=None)
+        svm_avg_acc += svm_acc
+        svm_avg_f1 += svm_f1
 
-        svm_ac = np.mean(predicted == test_lab) * 100.0
-        svm_scores.append(svm_ac)
-        print('SVM acc: %.2f' % svm_ac)
-        # print('CR\n', classification_report(test_lab, predicted))
+        print "\ntraining session", it
+        print "accuracy:", svm_acc
+        print "f1 score:", svm_f1
 
-    svm_avg = np.mean(svm_scores)
-    print 'SVM avg:', svm_avg
-    print 'SVM std:', np.std(svm_scores)
-    return [nb_ac, svm_avg]
+    svm_avg_acc /= num_sessions
+    svm_avg_f1 /= num_sessions
+
+    print "\naverages over sessions"
+    print "avg. accuracy:", svm_avg_acc
+    print "avg. f1 score:", svm_avg_f1
