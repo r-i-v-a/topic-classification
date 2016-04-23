@@ -13,7 +13,7 @@ vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
 # k = number of features to select = final vector size
-k_vals = [200, 400, 600, 800]
+k_vals = [200, 400, 600, 800, 1000, 2000, 3000, 4000, 5000]
 
 # load document data
 doc_cats = pickle.load(open(datadir + "/doc_cats.p", 'rb'))

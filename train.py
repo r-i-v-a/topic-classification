@@ -11,14 +11,17 @@ vectors_mi = datadir + "/vectors_mi"
 vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
-train_data = numpy.load(vectors_mi + "/x_train_200.npy")
-train_lab = numpy.load(vectors_mi + "/y_train_200.npy")
-test_data = numpy.load(vectors_mi + "/x_test_200.npy")
-test_lab = numpy.load(vectors_mi + "/y_test_200.npy")
+vectors = vectors_mi
+k = 5000
 
-print "train x size: ", train_data.shape
-print "train y size: ", train_lab.shape
-print "test x size: ", test_data.shape
-print "test y size: ", test_lab.shape
+train_x = numpy.load(vectors + "/x_train_" + str(k) + ".npy")
+train_y = numpy.load(vectors + "/y_train_" + str(k) + ".npy")
+test_x = numpy.load(vectors + "/x_test_" + str(k) + ".npy")
+test_y = numpy.load(vectors + "/y_test_" + str(k) + ".npy")
 
-train_svm.run_clfs(train_data, train_lab, test_data, test_lab)
+print "train x size: ", train_x.shape
+print "train y size: ", train_y.shape
+print "test x size: ", test_x.shape
+print "test y size: ", test_y.shape
+
+train_svm.run_clfs(train_x, train_y, test_x, test_y)

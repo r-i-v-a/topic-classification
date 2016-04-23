@@ -14,15 +14,15 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
     predicted = nb_clf.predict(test_data)
 
     nb_ac = np.mean(predicted == test_lab) * 100.0
-    print('NB: %.2f' % nb_ac)
-    print('CR\n', classification_report(test_lab, predicted))
+    print('NB acc: %.2f' % nb_ac)
+    # print('CR\n', classification_report(test_lab, predicted))
 
     # These parameters are set based on grid search on train data
 
     svm_scores = []
     for it in range(10):
         sgd_clf = Pipeline([('clf', SGDClassifier(loss='hinge', penalty='l2',
-                                                  alpha=0.01, n_iter=25,
+                                                  alpha=0.4, n_iter=25,
                                                   random_state=it+5)), ])
 
         sgd_clf = sgd_clf.fit(train_data, train_lab)
@@ -30,9 +30,10 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
 
         svm_ac = np.mean(predicted == test_lab) * 100.0
         svm_scores.append(svm_ac)
-        print('SVM: %.2f' % svm_ac)
-        print('CR\n', classification_report(test_lab, predicted))
+        print('SVM acc: %.2f' % svm_ac)
+        # print('CR\n', classification_report(test_lab, predicted))
 
     svm_avg = np.mean(svm_scores)
-    print('SVM avg:', svm_avg, np.std(svm_scores))
+    print 'SVM avg:', svm_avg
+    print 'SVM std:', np.std(svm_scores)
     return [nb_ac, svm_avg]
