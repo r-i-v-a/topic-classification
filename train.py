@@ -11,7 +11,7 @@ vectors_mi = datadir + "/vectors_mi"
 vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
-vectors = vectors_mi
+vectors = vectors_tf_idf
 k = 5000
 
 train_x = numpy.load(vectors + "/x_train_" + str(k) + ".npy")
