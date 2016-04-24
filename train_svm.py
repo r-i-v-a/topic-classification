@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 from __future__ import division
-from sklearn.linear_model import SGDClassifier
-from sklearn.naive_bayes import MultinomialNB
 from sklearn.grid_search import GridSearchCV
-from sklearn.pipeline import Pipeline
+from sklearn.linear_model import SGDClassifier
 from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler, RobustScaler
 import numpy
 
 def run_clfs(train_data, train_lab, test_data, test_lab):
@@ -33,8 +34,9 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
     num_sessions = 10
 
     for it in range(num_sessions):
-        sgd_clf = Pipeline([('clf', SGDClassifier(loss='hinge', penalty='l2',
-                                                  alpha=0.4, n_iter=25,
+        sgd_clf = Pipeline([('scale', RobustScaler()), 
+                            ('clf', SGDClassifier(loss='hinge', penalty='l2',
+                                                  alpha=0.2, n_iter=25,
                                                   random_state=it)), ])
 
         sgd_clf = sgd_clf.fit(train_data, train_lab)
@@ -46,7 +48,7 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
         svm_avg_f1 += svm_f1_avg
 
         '''
-        # save confusion matrix
+        # optional: save confusion matrix
         svm_cm = confusion_matrix(test_lab, predicted)
         numpy.save("cm_" + str(it) + ".npy", svm_cm)
         '''
