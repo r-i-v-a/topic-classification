@@ -5,7 +5,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.grid_search import GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import accuracy_score, f1_score, confusion_matrix
 import numpy
 
 def run_clfs(train_data, train_lab, test_data, test_lab):
@@ -41,6 +41,10 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
         svm_f1 = f1_score(test_lab, predicted, average=None)
         svm_avg_acc += svm_acc
         svm_avg_f1 += svm_f1
+
+        # optional: confusion matrix
+        svm_cm = confusion_matrix(test_lab, predicted)
+        numpy.save("cm_" + str(it) + ".npy", svm_cm)
 
         print "\ntraining session", it
         print "accuracy:", svm_acc
