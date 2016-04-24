@@ -16,19 +16,21 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
     nb_clf = MultinomialNB()
     nb_clf = nb_clf.fit(train_data, train_lab)
     predicted = nb_clf.predict(test_data)
+
     nb_acc = accuracy_score(test_lab, predicted) * 100
-    nb_f1 = f1_score(test_lab, predicted, average=None)
+    nb_f1_avg = f1_score(test_lab, predicted, average='weighted')
+    nb_f1_cat = f1_score(test_lab, predicted, average=None)
 
     print "accuracy:", nb_acc
-    print "f1 score:", nb_f1
+    print "f1 average:", nb_f1_avg
+    print "f1 by class:", nb_f1_cat
 
     # classification: Support Vector Machine
     print "\nSUPPORT VECTOR MACHINE"
 
-    num_classes = len(numpy.unique(test_lab))
-    num_sessions = 10
     svm_avg_acc = 0
-    svm_avg_f1 = numpy.zeros(num_classes)
+    svm_avg_f1 = 0
+    num_sessions = 10
 
     for it in range(num_sessions):
         sgd_clf = Pipeline([('clf', SGDClassifier(loss='hinge', penalty='l2',
@@ -38,17 +40,21 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
         sgd_clf = sgd_clf.fit(train_data, train_lab)
         predicted = sgd_clf.predict(test_data)
         svm_acc = accuracy_score(test_lab, predicted) * 100
-        svm_f1 = f1_score(test_lab, predicted, average=None)
+        svm_f1_avg = f1_score(test_lab, predicted, average='weighted')
+        svm_f1_cat = f1_score(test_lab, predicted, average=None)
         svm_avg_acc += svm_acc
-        svm_avg_f1 += svm_f1
+        svm_avg_f1 += svm_f1_avg
 
-        # optional: confusion matrix
+        '''
+        # save confusion matrix
         svm_cm = confusion_matrix(test_lab, predicted)
         numpy.save("cm_" + str(it) + ".npy", svm_cm)
+        '''
 
         print "\ntraining session", it
         print "accuracy:", svm_acc
-        print "f1 score:", svm_f1
+        print "f1 average:", svm_f1_avg
+        print "f1 by class:", svm_f1_cat
 
     svm_avg_acc /= num_sessions
     svm_avg_f1 /= num_sessions
