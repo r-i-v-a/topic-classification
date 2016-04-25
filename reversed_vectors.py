@@ -13,7 +13,7 @@ vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
 # k = number of features to select = final vector size
-k_vals = [200, 400, 600, 800, 1000, 2000, 3000, 4000, 5000]
+k_vals = [1000]
 
 # load document data
 doc_cats = pickle.load(open(datadir + "/doc_cats.p", 'rb'))
@@ -25,6 +25,14 @@ set_test = pickle.load(open(datadir + "/set_svm_test.p", 'rb'))
 top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))
 top_tf_idf = pickle.load(open(features + "/top_tf_idf.p", 'rb'))
 top_x2 = pickle.load(open(features + "/top_x2.p", 'rb'))
+
+print type(top_mi)
+print type(top_tf_idf)
+print type(top_x2)
+
+top_mi.reverse()
+top_tf_idf.reverse()
+top_x2.reverse()
 
 # generate term frequency vectors
 print "saving document vectors: MI"

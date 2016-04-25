@@ -44,7 +44,7 @@ def run_clfs(train_data, train_lab, test_data, test_lab):
     svm_train_f1 = 0
     svm_test_acc = 0
     svm_test_f1 = 0
-    num_sessions = 2
+    num_sessions = 10
 
     for it in range(num_sessions):
         sgd_clf = Pipeline([('scale', RobustScaler()), 
