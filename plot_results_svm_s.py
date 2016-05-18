@@ -10,9 +10,9 @@ acc_tf_idf = [75.75, 79.70, 84.38, 85.66, 86.50]
 
 ax = pyplot.subplot()
 
-ax.plot(vec_size, acc_mi, label='MI', marker='|', markersize=10)
-ax.plot(vec_size, acc_x2, label='X2', marker='x', markersize=10)
-ax.plot(vec_size, acc_tf_idf, label='TF-IDF', marker='o', markersize=10)
+ax.plot(vec_size, acc_mi, label='MI', color='b', marker='|', markersize=10)
+ax.plot(vec_size, acc_x2, label='X2', color='b', marker='x', markersize=10)
+ax.plot(vec_size, acc_tf_idf, label='TF-IDF', color='b', marker='o', markersize=10)
 
 pyplot.title('SVM: accuracy of feature selection methods')
 pyplot.xlabel('number of features used')

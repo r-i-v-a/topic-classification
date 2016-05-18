@@ -5,7 +5,11 @@ import cPickle as pickle
 import matplotlib.pyplot as pyplot
 import numpy
 import sys
-import topic
+
+def rescale(a):
+	a -= numpy.mean(a)
+	a /= numpy.std(a)
+	return a
 
 datadir = sys.argv[1]
 
@@ -13,8 +17,6 @@ features = datadir + "/features"
 vectors_mi = datadir + "/vectors_mi"
 vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
-
-k = 20
 
 # load feature lists
 top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))
@@ -28,17 +30,22 @@ tf_idf = [v for (k,v) in sorted(top_tf_idf, key = lambda (k,v): k)]
 freq = [v for (k,v) in sorted(top_freq, key = lambda (k,v): k)]
 
 ax = pyplot.subplot()
-ax.hist(mi, 100, alpha=0.8)
+ax.scatter(rescale(tf_idf), rescale(mi), marker='+')
+pyplot.title('words: tf-idf vs. mutual information')
+pyplot.xlabel('tf-idf (normalized)')
+pyplot.ylabel('mutual information (normalized)')
 pyplot.show()
 
 ax = pyplot.subplot()
-ax.hist(x2, 100, alpha=0.8)
+ax.scatter(rescale(mi), rescale(x2), marker='+')
+pyplot.title('words: mutual information vs. chi-squared')
+pyplot.xlabel('mutual information (normalized)')
+pyplot.ylabel('chi-squared (normalized)')
 pyplot.show()
 
 ax = pyplot.subplot()
-ax.hist(tf_idf, 100, alpha=0.8)
-pyplot.show()
-
-ax = pyplot.subplot()
-ax.hist(freq, 100, alpha=0.8)
+ax.scatter(rescale(x2), rescale(tf_idf), marker='+')
+pyplot.title('words: chi-squared vs. tf-idf')
+pyplot.xlabel('chi-squared (normalized)')
+pyplot.ylabel('tf-idf (normalized)')
 pyplot.show()

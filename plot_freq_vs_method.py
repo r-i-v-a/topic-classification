@@ -5,7 +5,6 @@ import cPickle as pickle
 import matplotlib.pyplot as pyplot
 import numpy
 import sys
-import topic
 
 def rescale(a):
 	a -= numpy.mean(a)
@@ -18,8 +17,6 @@ features = datadir + "/features"
 vectors_mi = datadir + "/vectors_mi"
 vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
-
-k = 20
 
 # load feature lists
 top_mi = pickle.load(open(features + "/top_mi.p", 'rb'))

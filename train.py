@@ -12,7 +12,7 @@ vectors_tf_idf = datadir + "/vectors_tf_idf"
 vectors_x2 = datadir + "/vectors_x2"
 
 vectors = vectors_tf_idf
-k = 5000
+k = 1000
 
 train_x = numpy.load(vectors + "/x_train_" + str(k) + ".npy")
 train_y = numpy.load(vectors + "/y_train_" + str(k) + ".npy")
