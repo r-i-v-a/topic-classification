@@ -5,6 +5,9 @@ import cPickle as pickle
 import numpy
 import random
 
+# contains shared functions used in other scripts
+# for feature selection and generating doc vectors
+
 # get document categories
 def cats(cat_docs):
 

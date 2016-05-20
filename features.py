@@ -9,6 +9,8 @@ import sys
 import tf_idf
 import topic
 
+# select feature terms using mutual information, chi-squared, tf-idf
+
 datadir = sys.argv[1]
 
 files_counts = "./files_counts.txt"

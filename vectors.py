@@ -5,6 +5,9 @@ import cPickle as pickle
 import sys
 import topic
 
+# constructs document vectors for training and testing classifier;
+# uses only documents from the collection not used for feature selection
+
 datadir = sys.argv[1]
 
 features = datadir + "/features"

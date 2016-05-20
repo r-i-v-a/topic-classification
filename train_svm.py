@@ -8,6 +8,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, RobustScaler
 import numpy
 
+# trains Naive Bayes and support vector machine classifiers
+
 def run_clfs(train_data, train_lab, test_data, test_lab):
 
     # Multinomial Naive Bayes classification
